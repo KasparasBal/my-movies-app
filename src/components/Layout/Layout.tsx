@@ -1,23 +1,22 @@
 import { ReactNode } from 'react';
-import { MyMoviesLogo } from 'components/Icons';
 
 import styles from './Layout.module.css';
 
 type Props = {
   children: ReactNode;
-  header: ReactNode;
+  Header: React.FC;
   footer: ReactNode;
 };
 
-const Layout: React.FC<Props> = ({ children, header, footer }: Props) => {
+const Layout: React.FC<Props> = ({ children, Header, footer }: Props) => {
   return (
-    <div className={styles.layout}>
-      <header>
-        <MyMoviesLogo className={styles.icon} /> {header}{' '}
-      </header>
-      <main>{children}</main>
-      <footer>{footer}</footer>
-    </div>
+    <>
+      <Header />
+      <div className={styles.layout}>
+        <main>{children}</main>
+        <footer>{footer}</footer>
+      </div>
+    </>
   );
 };
 
