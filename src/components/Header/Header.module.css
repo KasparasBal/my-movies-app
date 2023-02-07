@@ -1,0 +1,13 @@
+.header{
+    background-color: var(--white);
+    box-shadow: var(--headerBoxShadow);
+    left: 0;
+    padding: 0 50px;
+    position: sticky;
+    top: 0;
+    z-index: var(--headerZIndex);
+}
+
+.icon {
+    height: 40px;
+  }
