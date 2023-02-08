@@ -1,0 +1,46 @@
+/* Desktop */
+.hamburgerBtn{
+    display: none;
+}
+
+/* Mobile Device 600px/width */
+@media only screen and (max-width: 600px) {
+.hamburgerBtn{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: block;
+    width: 25px;
+} 
+.hamburgerBtn > Span{
+    background-color: var(--black);
+    transition: all .3s ease-in-out;
+}
+.hamburgerBtn.Crossed > Span{
+    transition: all .3s ease-in-out;
+}
+
+.hamburgerBtn.Crossed > span:first-child{
+    transform: translateY(8px) rotate(-45deg);
+ 
+}
+
+.hamburgerBtn.Crossed > span:nth-child(2){
+    opacity: 0;
+}
+
+.hamburgerBtn.Crossed> span:last-child{
+    transform: translateY(-8px) rotate(45deg);
+    
+}
+.row-1,
+.row-2,
+.row-3{
+    background-color: black;
+    display: block;
+    height: 3px;
+    margin: 5px auto;
+    width: 25px;
+}
+
+  }
