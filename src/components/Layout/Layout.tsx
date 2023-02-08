@@ -5,17 +5,17 @@ import styles from './Layout.module.css';
 type Props = {
   children: ReactNode;
   Header: React.FC;
-  footer: ReactNode;
+  Footer: React.FC;
 };
 
-const Layout: React.FC<Props> = ({ children, Header, footer }: Props) => {
+const Layout: React.FC<Props> = ({ children, Header, Footer }: Props) => {
   return (
     <>
       <Header />
       <div className={styles.layout}>
         <main>{children}</main>
-        <footer>{footer}</footer>
       </div>
+      <Footer />
     </>
   );
 };
