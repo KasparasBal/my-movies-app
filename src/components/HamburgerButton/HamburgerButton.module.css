@@ -1,10 +1,3 @@
-/* Desktop */
-.hamburgerBtn{
-    display: none;
-}
-
-/* Mobile Device 600px/width */
-@media only screen and (max-width: 600px) {
 .hamburgerBtn{
     background-color: transparent;
     border: none;
@@ -12,11 +5,11 @@
     display: block;
     width: 25px;
 } 
-.hamburgerBtn > Span{
+.hamburgerBtn > span{
     background-color: var(--black);
     transition: all .3s ease-in-out;
 }
-.hamburgerBtn.Crossed > Span{
+.hamburgerBtn.Crossed > span{
     transition: all .3s ease-in-out;
 }
 
@@ -42,5 +35,3 @@
     margin: 5px auto;
     width: 25px;
 }
-
-  }
