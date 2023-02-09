@@ -1,6 +1,7 @@
 :root{
-  --white: #fff;
   --black: #000000;
+  --grey: #c7c7c7;
+  --opaqueBlack: rgba(0,0,0,0.3);
   --headerBoxShadow:0 3px 5px rgba(0,0,0,0.1);
   --headerZIndex: 20;
   --secondary:#61dafb;
