@@ -3,18 +3,16 @@ import { ReactNode } from 'react';
 import styles from './Layout.module.css';
 
 type Props = {
-  children: ReactNode;
   Header: React.FC;
   Footer: React.FC;
+  children: ReactNode;
 };
 
-const Layout: React.FC<Props> = ({ children, Header, Footer }: Props) => {
+const Layout: React.FC<Props> = ({ Header, Footer, children }: Props) => {
   return (
     <>
       <Header />
-      <div className={styles.layout}>
-        <main>{children}</main>
-      </div>
+      <div className={styles.layout}>{children}</div>
       <Footer />
     </>
   );
