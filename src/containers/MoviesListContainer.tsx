@@ -1,9 +1,11 @@
-import { useQuery } from 'react-query';
-import { fetchStatus } from 'api/health';
+import styles from './MoviesListContainer.module.css';
 
 const MoviesListContainer: React.FC = () => {
-  const { data: healthy } = useQuery('status', fetchStatus);
-  return <p>API Status: {healthy ? 'Is running' : 'Something is wrong!'}</p>;
+  return (
+    <div className={styles.moviesList}>
+      <p>Movies List</p>
+    </div>
+  );
 };
 
 export default MoviesListContainer;
