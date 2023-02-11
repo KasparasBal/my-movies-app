@@ -28,7 +28,6 @@ const Header: React.FC = () => {
           {match && <HamburgerButton isActive={isActive} onClick={isActiveHandler} />}
           {!match && (
             <NavigationLink>
-              {' '}
               <NavLink to="Movies">Movies</NavLink>{' '}
             </NavigationLink>
           )}
