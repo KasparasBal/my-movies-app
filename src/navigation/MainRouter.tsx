@@ -1,7 +1,7 @@
 import MoviesListContainer from 'containers/MoviesListContainer';
 import { Routes, Route } from 'react-router-dom';
 
-const MainRouter = () => {
+const MainRouter: React.FC = () => {
   return (
     <Routes>
       <Route element={<MoviesListContainer />} path="/">
