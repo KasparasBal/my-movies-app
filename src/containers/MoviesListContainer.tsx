@@ -1,6 +1,8 @@
 import Loader from 'components/Loader/Loader';
 import { useQuery } from 'react-query';
 
+import styles from './MoviesListContainer.module.css';
+
 type Movie = {
   id?: string;
   email?: string;
@@ -12,6 +14,7 @@ type Movie = {
   voteAverage: number;
 };
 const MoviesListContainer: React.FC = () => {
+
   const { isLoading, error, data } = useQuery('MovieData', () => fetch('http://localhost:3001/movies').then((res) => res.json()));
 
   const MovieData =
