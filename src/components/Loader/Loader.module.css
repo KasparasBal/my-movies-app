@@ -1,0 +1,33 @@
+.backdrop{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.loader {
+    animation: rotate 1s linear infinite;
+    border-radius: 50%;
+    height: 48px;
+    position: relative;
+    width: 48px;
+  }
+  .loader::before {
+    animation: prixClipFix 3s linear infinite ;
+    border: 7px solid var(--secondary);
+    border-radius: 50%;
+    box-sizing: border-box;
+    content: "";
+    position: absolute;
+    inset: 0px;
+  }
+
+  @keyframes rotate {
+    100%   {transform: rotate(360deg)}
+  }
+
+  @keyframes prixClipFix {
+      0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+      25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+      50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+      75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+      100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+  }
