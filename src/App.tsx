@@ -14,7 +14,6 @@ function App(): JSX.Element {
         <Layout Footer={Footer} Header={Header}>
           <MainRouter />
         </Layout>
-        ;
       </BrowserRouter>
     </QueryClientProvider>
   );

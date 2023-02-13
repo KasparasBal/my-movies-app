@@ -1,12 +1,6 @@
 import Loader from 'components/Loader/Loader';
 import { useQuery } from 'react-query';
 
-// type Movies = {
-//   page: number;
-//   totalPages: number;
-//   movies: Movie[];
-// };
-
 type Movie = {
   id?: string;
   email?: string;
