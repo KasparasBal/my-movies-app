@@ -1,6 +1,7 @@
 import Loader from 'components/Loader/Loader';
 import { useQuery } from 'react-query';
 
+import MovieCard from './MovieCard/MovieCard';
 import styles from './MoviesListContainer.module.css';
 
 type Movie = {
@@ -14,28 +15,26 @@ type Movie = {
   voteAverage: number;
 };
 const MoviesListContainer: React.FC = () => {
-
   const { isLoading, error, data } = useQuery('MovieData', () => fetch('http://localhost:3001/movies').then((res) => res.json()));
 
   const MovieData =
     data &&
     data.movies.map((movie: Movie) => (
-      <div key={movie.movieId}>
-        <ul>
-          <li>{movie.title}</li>
-          <li>{movie.releaseDate}</li>
-          <li>{movie.backdropPath}</li>
-          <li>{movie.posterPath}</li>
-          <li>{movie.voteAverage}</li>
-        </ul>
-      </div>
+      <MovieCard
+        key={movie.movieId}
+        movieBackDropPath={movie.backdropPath}
+        moviePosterPath={movie.posterPath}
+        movieReleaseDate={movie.releaseDate}
+        movieTitle={movie.title}
+        movieVoteAverage={movie.voteAverage}
+      />
     ));
 
   return (
     <div>
       {isLoading && <Loader />}
       {error && 'Oops Something Went Wrong!'}
-      {data && MovieData}
+      {data && <div className={styles.movieList}> {MovieData}</div>}
     </div>
   );
 };
