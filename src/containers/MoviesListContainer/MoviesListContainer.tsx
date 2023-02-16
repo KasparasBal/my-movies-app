@@ -1,5 +1,6 @@
 import Loader from 'components/Loader/Loader';
 import { useQuery } from 'react-query';
+import { useMediaQuery } from 'hooks/useMediaQuery';
 
 import MovieCard from './MovieCard/MovieCard';
 import styles from './MoviesListContainer.module.css';
@@ -16,6 +17,11 @@ type Movie = {
 };
 const MoviesListContainer: React.FC = () => {
   const { isLoading, error, data } = useQuery('MovieData', () => fetch('http://localhost:3001/movies').then((res) => res.json()));
+  const { match: matchXS } = useMediaQuery('(max-width: 576px)');
+  const { match: matchSM } = useMediaQuery('(min-width: 576px) and (max-width: 768px)');
+  const { match: matchMD } = useMediaQuery('(min-width: 768px) and (max-width: 992px)');
+  const { match: matchLG } = useMediaQuery('(min-width: 992px) and (max-width: 1200px)');
+  const { match: matchXL } = useMediaQuery('(min-width: 1200px)');
 
   const MovieData =
     data &&
@@ -34,7 +40,11 @@ const MoviesListContainer: React.FC = () => {
     <div>
       {isLoading && <Loader />}
       {error && 'Oops Something Went Wrong!'}
-      {data && <div className={styles.movieList}> {MovieData}</div>}
+      {data && matchXS && <div className={`${styles.movieList} ${styles.movieList_xs}`}> {MovieData}</div>}
+      {data && matchSM && <div className={`${styles.movieList} ${styles.movieList_sm}`}> {MovieData}</div>}
+      {data && matchMD && <div className={`${styles.movieList} ${styles.movieList_md}`}> {MovieData}</div>}
+      {data && matchLG && <div className={`${styles.movieList} ${styles.movieList_lg}`}> {MovieData}</div>}
+      {data && matchXL && <div className={`${styles.movieList} ${styles.movieList_xl}`}> {MovieData}</div>}
     </div>
   );
 };
