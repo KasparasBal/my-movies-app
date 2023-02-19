@@ -1,0 +1,77 @@
+.posterWrapper{
+    max-width: 400px;
+    min-width: 300px;  
+}
+.poster{
+    width: 100%;
+}
+.detailsList{
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    list-style: none;
+    padding: 0;
+}
+.detailsListItem{
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+}
+.movieContainer{
+    background: rgba(255,255,255,0.9);
+    display: flex;
+    margin: 0 -50px;
+    min-height: 100vh;
+    padding: 50px 50px;
+    position: relative;
+    width: 100%;
+}
+.backdrop{
+    background-position: right -200px top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 -50px;
+    max-width: 100%;
+    padding: 0 50px;
+}
+
+.genreList{
+    display: flex;
+    gap: 5px;
+    list-style: none;
+    padding: 0;
+}
+.prodCompanies{
+    display: flex;
+    padding: 0;
+}
+.prodCompany{
+    font-size: 14px;
+    list-style: none;
+}
+.prodCompany:not(:first-child){
+    margin-left: 2px;
+}
+.detailItem{
+    font-weight: bolder;
+    margin-left: 5px;
+}
+.releaseDate{
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 5px;
+    opacity: .8;
+}
+.infoWrapper{
+    padding: 0 20px;
+}
+.tagline{
+    font-size: 12px;
+    font-weight: 400;
+}
+.title{
+    margin: 0;
+}
+.overview{
+    font-size: 14px;
+}
