@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { useMediaQuery } from 'hooks/useMediaQuery';
+import axios from 'axios';
 import Loader from 'components/Loader/Loader';
 import Tag from 'components/Tag/Tag';
 import currencyFormatter from 'helpers/currencyFormatter';
@@ -20,7 +22,13 @@ interface Genre {
 
 const MovieInfoContainer: React.FC = () => {
   const { id } = useParams();
-  const { isLoading, error, data } = useQuery('MovieData', () => fetch(`http://localhost:3001/movies/${id}`).then((res) => res.json()));
+  const fetchData = async () => {
+    const { data } = await axios.get(`http://localhost:3001/movies/${id}`);
+    return data;
+  };
+  const { isLoading, error, data } = useQuery('MovieData', fetchData);
+
+  const { match } = useMediaQuery('(max-width: 768px)');
 
   return (
     <div>
@@ -33,7 +41,7 @@ const MovieInfoContainer: React.FC = () => {
             backgroundImage: `url(${data.backdropPath})`,
           }}
         >
-          <div className={styles.movieContainer}>
+          <div className={`${styles.movieContainer} ${match && styles.mobile}`}>
             <div className={styles.posterWrapper}>
               <img alt="Movie Poster" className={styles.poster} src={data.posterPath} />
             </div>

@@ -26,6 +26,10 @@
     position: relative;
     width: 100%;
 }
+.mobile{
+    align-items: center;
+    flex-direction: column;
+}
 .backdrop{
     background-position: right -200px top;
     background-repeat: no-repeat;

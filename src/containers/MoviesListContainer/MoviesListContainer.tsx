@@ -1,6 +1,7 @@
 import Loader from 'components/Loader/Loader';
 import { useQuery } from 'react-query';
 import { useMediaQuery } from 'hooks/useMediaQuery';
+import axios from 'axios';
 
 import MovieCard from './MovieCard/MovieCard';
 import styles from './MoviesListContainer.module.css';
@@ -15,8 +16,12 @@ type Movie = {
   posterPath: string;
   voteAverage: number;
 };
+const fetchData = async () => {
+  const { data } = await axios.get(`http://localhost:3001/movies/`);
+  return data;
+};
 const MoviesListContainer: React.FC = () => {
-  const { isLoading, error, data } = useQuery('MovieData', () => fetch('http://localhost:3001/movies').then((res) => res.json()));
+  const { isLoading, error, data } = useQuery('MovieData', fetchData);
   const { match: matchXS } = useMediaQuery('(max-width: 576px)');
   const { match: matchSM } = useMediaQuery('(min-width: 576px) and (max-width: 768px)');
   const { match: matchMD } = useMediaQuery('(min-width: 768px) and (max-width: 992px)');
@@ -29,6 +34,7 @@ const MoviesListContainer: React.FC = () => {
       <MovieCard
         key={movie.movieId}
         movieBackDropPath={movie.backdropPath}
+        movieId={movie.movieId}
         moviePosterPath={movie.posterPath}
         movieReleaseDate={movie.releaseDate}
         movieTitle={movie.title}
