@@ -19,3 +19,8 @@
 .movieList_xl{
     grid-template-columns: repeat(6, 1fr);
 }
+.paginationBar {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
