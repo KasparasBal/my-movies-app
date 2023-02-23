@@ -23,9 +23,9 @@ const Header: React.FC = () => {
   return (
     <>
       <header className={styles.header}>
-        <a href="/">
+        <NavLink to="Movies">
           <MyMoviesLogo className={styles.icon} />
-        </a>
+        </NavLink>
         <nav>
           {match && <HamburgerButton isActive={isActive} onClick={isActiveHandler} />}
           {!match && (
