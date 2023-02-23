@@ -2,6 +2,8 @@ import Loader from 'components/Loader/Loader';
 import { useQuery } from 'react-query';
 import { useMediaQuery } from 'hooks/useMediaQuery';
 import axios from 'axios';
+import Pagination from 'components/Pagination/Pagination';
+import { useSearchParams } from 'react-router-dom';
 
 import MovieCard from './MovieCard/MovieCard';
 import styles from './MoviesListContainer.module.css';
@@ -16,12 +18,14 @@ type Movie = {
   posterPath: string;
   voteAverage: number;
 };
-const fetchData = async () => {
-  const { data } = await axios.get(`http://localhost:3001/movies/`);
+const fetchData = async (activePage: number) => {
+  const { data } = await axios.get(`http://localhost:3001/movies?page=${activePage}`);
   return data;
 };
 const MoviesListContainer: React.FC = () => {
-  const { isLoading, error, data } = useQuery('MovieData', fetchData);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activePage = parseInt(searchParams.get('page') || '1');
+  const { isLoading, error, data } = useQuery(['MovieData', activePage], () => fetchData(activePage));
   const { match: matchXS } = useMediaQuery('(max-width: 576px)');
   const { match: matchSM } = useMediaQuery('(min-width: 576px) and (max-width: 768px)');
   const { match: matchMD } = useMediaQuery('(min-width: 768px) and (max-width: 992px)');
@@ -41,17 +45,29 @@ const MoviesListContainer: React.FC = () => {
         movieVoteAverage={movie.voteAverage}
       />
     ));
+  const handlePageSelect = (page: number) => {
+    setSearchParams({ page: `${page}` });
+  };
 
   return (
-    <div>
-      {isLoading && <Loader />}
-      {error && 'Oops Something Went Wrong!'}
-      {data && matchXS && <div className={`${styles.movieList} ${styles.movieList_xs}`}> {MovieData}</div>}
-      {data && matchSM && <div className={`${styles.movieList} ${styles.movieList_sm}`}> {MovieData}</div>}
-      {data && matchMD && <div className={`${styles.movieList} ${styles.movieList_md}`}> {MovieData}</div>}
-      {data && matchLG && <div className={`${styles.movieList} ${styles.movieList_lg}`}> {MovieData}</div>}
-      {data && matchXL && <div className={`${styles.movieList} ${styles.movieList_xl}`}> {MovieData}</div>}
-    </div>
+    <>
+      <div>
+        {isLoading && <Loader />}
+        {error && 'Oops Something Went Wrong!'}
+        {data && matchXS && <div className={`${styles.movieList} ${styles.movieList_xs}`}> {MovieData}</div>}
+        {data && matchSM && <div className={`${styles.movieList} ${styles.movieList_sm}`}> {MovieData}</div>}
+        {data && matchMD && <div className={`${styles.movieList} ${styles.movieList_md}`}> {MovieData}</div>}
+        {data && matchLG && <div className={`${styles.movieList} ${styles.movieList_lg}`}> {MovieData}</div>}
+        {data && matchXL && <div className={`${styles.movieList} ${styles.movieList_xl}`}> {MovieData}</div>}
+      </div>
+      <Pagination
+        className={styles.paginationBar}
+        currentPage={activePage}
+        pageSize={20}
+        totalCount={data && data.totalPages}
+        onPageChange={(page) => handlePageSelect(page)}
+      />
+    </>
   );
 };
 
