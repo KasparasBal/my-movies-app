@@ -1,8 +1,8 @@
 import Select, { SingleValue, MultiValue, ActionMeta } from 'react-select';
 
-type Option = { label: string; value: string };
+export type Option = { label: string; value: string };
 
-type SelectProps = {
+export type SelectProps = {
   isMulti?: boolean;
   onChange?: ((newValue: SingleValue<Option> | MultiValue<Option>, actionMeta: ActionMeta<Option>) => void) | undefined;
   options: Option[];
