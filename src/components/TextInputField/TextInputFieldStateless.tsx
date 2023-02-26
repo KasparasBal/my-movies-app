@@ -7,6 +7,6 @@ type Props = {
 };
 
 const TextInputFieldStateless: React.FC<Props> = ({ placeholder, value, onChange }: Props) => {
-  return <input className={styles.filterInput} placeholder={placeholder} type="text" value={value} onChange={onChange}></input>;
+  return <input className={styles.input} placeholder={placeholder} type="text" value={value} onChange={onChange}></input>;
 };
 export default TextInputFieldStateless;
