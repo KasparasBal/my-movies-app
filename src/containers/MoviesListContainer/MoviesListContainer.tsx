@@ -4,9 +4,11 @@ import { useMediaQuery } from 'hooks/useMediaQuery';
 import axios from 'axios';
 import Pagination from 'components/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
+import { FormikValues } from 'formik';
 
 import MovieCard from './MovieCard/MovieCard';
 import styles from './MoviesListContainer.module.css';
+import MoviesListFilter from './MoviesListFilter/MoviesListFilter';
 
 type Movie = {
   id?: string;
@@ -22,6 +24,7 @@ const fetchData = async (activePage: number) => {
   const { data } = await axios.get(`http://localhost:3001/movies?page=${activePage}`);
   return data;
 };
+
 const MoviesListContainer: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activePage = parseInt(searchParams.get('page') || '1');
@@ -49,8 +52,13 @@ const MoviesListContainer: React.FC = () => {
     setSearchParams({ page: `${page}` });
   };
 
+  const handleFormSubmit = (values: FormikValues) => {
+    console.log(values);
+  };
+
   return (
     <>
+      <MoviesListFilter handleSubmit={handleFormSubmit} />
       <div>
         {isLoading && <Loader />}
         {error && 'Oops Something Went Wrong!'}
