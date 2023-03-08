@@ -8,9 +8,10 @@ import styles from './MoviesListFilter.module.css';
 
 type Props = {
   handleSubmit: (values: FormikValues) => void;
+  handleReset: (resetForm: () => void) => void;
 };
 
-const MoviesListFilter: React.FC<Props> = ({ handleSubmit }) => {
+const MoviesListFilter: React.FC<Props> = ({ handleSubmit, handleReset }) => {
   const initialValues = {
     title: '',
     genres: [],
@@ -37,8 +38,6 @@ const MoviesListFilter: React.FC<Props> = ({ handleSubmit }) => {
     label: option.name,
     value: option.code,
   }));
-
-  console.log(sortData);
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
@@ -91,7 +90,7 @@ const MoviesListFilter: React.FC<Props> = ({ handleSubmit }) => {
           <button className={styles.button} type="submit">
             Submit
           </button>
-          <button className={styles.button} type="reset" onClick={() => resetForm}>
+          <button className={styles.button} type="reset" onClick={() => handleReset(resetForm)}>
             Reset
           </button>
         </Form>
