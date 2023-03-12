@@ -1,5 +1,7 @@
 :root{
   --black: #000000;
+  --backdrop:hsla(0,0%,75.3%,0.9);
+  --darkGrey: #8c8c8c;
   --grey: #c7c7c7;
   --opaqueBlack: rgba(0,0,0,0.3);
   --headerBoxShadow:0 3px 5px rgba(0,0,0,0.1);
