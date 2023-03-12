@@ -1,9 +1,9 @@
 import { Field } from 'formik';
 
 import SelectFieldAdapter from './SelectFieldAdapter';
-import { Option, SelectProps } from './SelectFieldStateless';
+import { SelectProps } from './SelectFieldStateless';
 
-const SelectField: React.FC<Option & SelectProps> = (props) => {
+const SelectField: React.FC<Omit<SelectProps, 'value'>> = (props) => {
   return <Field {...props} component={SelectFieldAdapter} />;
 };
 

@@ -4,9 +4,11 @@ import { useMediaQuery } from 'hooks/useMediaQuery';
 import axios from 'axios';
 import Pagination from 'components/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
+import { FormikValues } from 'formik';
 
 import MovieCard from './MovieCard/MovieCard';
 import styles from './MoviesListContainer.module.css';
+import MoviesListFilter from './MoviesListFilter/MoviesListFilter';
 
 type Movie = {
   id?: string;
@@ -18,14 +20,30 @@ type Movie = {
   posterPath: string;
   voteAverage: number;
 };
-const fetchData = async (activePage: number) => {
-  const { data } = await axios.get(`http://localhost:3001/movies?page=${activePage}`);
+const fetchData = async (
+  activePage: number,
+  movieFilter: {
+    title?: string;
+    genres?: string[];
+    sort?: string;
+  },
+) => {
+  let url = `http://localhost:3001/movies?page=${activePage}`;
+  if (movieFilter.title) url += `&title=${movieFilter.title}`;
+  if (movieFilter.sort) url += `&sort=${movieFilter.sort}`;
+  if (movieFilter.genres && movieFilter.genres.length) {
+    const genreParams = movieFilter.genres.map((genre) => `${genre}`).join(',');
+    url += `&genres=${genreParams}`;
+  }
+  const { data } = await axios.get(url);
   return data;
 };
+
 const MoviesListContainer: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activePage = parseInt(searchParams.get('page') || '1');
-  const { isLoading, error, data } = useQuery(['MovieData', activePage], () => fetchData(activePage));
+  const movieFilter = { title: searchParams.get('title') || '', genres: searchParams.getAll('genres') || [], sort: searchParams.get('sort') || '' };
+  const { isLoading, error, data } = useQuery(['MovieData', activePage, movieFilter], () => fetchData(activePage, movieFilter));
   const { match: matchXS } = useMediaQuery('(max-width: 576px)');
   const { match: matchSM } = useMediaQuery('(min-width: 576px) and (max-width: 768px)');
   const { match: matchMD } = useMediaQuery('(min-width: 768px) and (max-width: 992px)');
@@ -49,8 +67,27 @@ const MoviesListContainer: React.FC = () => {
     setSearchParams({ page: `${page}` });
   };
 
+  const handleFormSubmit = (values: FormikValues) => {
+    const title = values.title || '';
+    const sort = values.sort?.value || '';
+    const genres = values.genres.map((obj: { label: string; value: number }) => obj.value);
+
+    const searchParams: { [key: string]: string } = {};
+    if (title) searchParams.title = title;
+    if (sort) searchParams.sort = sort;
+    if (genres) searchParams.genres = genres;
+
+    setSearchParams(searchParams);
+  };
+
+  const handleReset = (resetForm: () => void) => {
+    setSearchParams({ page: `${activePage}` });
+    resetForm();
+  };
+
   return (
     <>
+      <MoviesListFilter handleReset={handleReset} handleSubmit={handleFormSubmit} />
       <div>
         {isLoading && <Loader />}
         {error && 'Oops Something Went Wrong!'}
