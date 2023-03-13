@@ -1,0 +1,15 @@
+.wrapper{
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    width: 100%;
+}
+.wrapper > input {
+    width: 90%;
+}
+.label{
+    color: var(--darkGrey);
+    font-size: 12px;
+    margin-bottom: 5px;
+}

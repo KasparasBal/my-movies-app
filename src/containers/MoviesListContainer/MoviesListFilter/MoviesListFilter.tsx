@@ -4,6 +4,7 @@ import TextInputField from 'components/TextInputField/TextInputField';
 import SelectField from 'components/SelectField/SelectField';
 import { fetchSortOptions } from 'api/sort/sort';
 import { fetchGenres } from 'api/genres/genres';
+import Button from 'components/Button/Button';
 
 import styles from './MoviesListFilter.module.css';
 
@@ -35,12 +36,8 @@ const MoviesListFilter: React.FC<Props> = ({ handleSubmit, handleReset }) => {
           <TextInputField id="title" name="title" placeholder="Enter movie title" type="text" />
           <SelectField id="genres" name="genres" options={genres} placeholder="Select genres" isMulti />
           <SelectField id="sort" name="sort" options={sort} placeholder="Select sorting" />
-          <button className={styles.button} type="submit">
-            Submit
-          </button>
-          <button className={styles.button} type="reset" onClick={() => handleReset(resetForm)}>
-            Reset
-          </button>
+          <Button buttonText="Submit" buttonType="submit" />
+          <Button buttonOnClick={() => handleReset(resetForm)} buttonText="Reset" buttonType="reset" />
         </Form>
       )}
     </Formik>
