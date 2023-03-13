@@ -7,10 +7,11 @@ import InputWrapper from 'components/InputWrapper/InputWrapper';
 import NavigationLink from 'components/NavigationLink/NavigationLink';
 import { Formik } from 'formik';
 
-import styles from './SignUpModal.module.css';
+import styles from './SignUpForm.module.css';
 
 type SignUpProps = {
   onClose: () => void;
+  onFormChange: () => void;
 };
 
 type User = {
@@ -19,7 +20,7 @@ type User = {
   password: string;
 };
 
-const SignUpForm: React.FC<SignUpProps> = ({ onClose }: SignUpProps) => {
+const SignUpForm: React.FC<SignUpProps> = ({ onClose, onFormChange }: SignUpProps) => {
   const initialValues = {
     name: '',
     email: '',
@@ -52,7 +53,10 @@ const SignUpForm: React.FC<SignUpProps> = ({ onClose }: SignUpProps) => {
             <ErrorMessage className={styles.error} component="div" name="password" />
           </InputWrapper>
           <p className={styles.link}>
-            Already a user? <span>Sign-in!</span>
+            Already a user?
+            <button className={styles.button} type="button" onClick={onFormChange}>
+              Sign-in!
+            </button>
           </p>
           <div className={styles.buttons}>
             <NavigationLink>

@@ -22,6 +22,17 @@
     display: flex;
     gap: 10px;
 }
+.button{
+    background-color: transparent;
+    border: none;
+    font-size: 12px;
+
+}
+.button:hover{
+    color: var(--secondary);
+    cursor: pointer;
+    text-decoration: underline;
+}
 .error{
     color: red;
     font-size:12px;
