@@ -5,7 +5,8 @@ import { MyMoviesLogo } from 'components/Icons';
 import { NavLink } from 'react-router-dom';
 import Sidebar from 'components/Sidebar/Sidebar';
 import NavigationLink from 'components/NavigationLink/NavigationLink';
-import SignUpModal from 'components/SignUpModal/SignUpModal';
+import Modal from 'components/Modal/Modal';
+import SignUpForm from 'components/SignUpModal/SignUpModal';
 
 import styles from './Header.module.css';
 
@@ -60,7 +61,11 @@ const Header: React.FC = () => {
           </NavigationLink>
         </Sidebar>
       )}
-      {isModalOpen && <SignUpModal onClose={closeModalHandler} />}
+      {isModalOpen && (
+        <Modal>
+          <SignUpForm onClose={closeModalHandler} />
+        </Modal>
+      )}
     </>
   );
 };

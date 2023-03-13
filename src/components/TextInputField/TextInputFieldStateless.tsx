@@ -12,7 +12,7 @@ export type TextInputFieldProps = {
   type: string;
 };
 
-const TextInputFieldStateless: React.FC<TextInputFieldProps> = ({ placeholder, value, onChange, type, ...rest }: TextInputFieldProps) => {
+const TextInputFieldStateless: React.FC<TextInputFieldProps> = ({ placeholder, value, onChange, type = 'text', ...rest }: TextInputFieldProps) => {
   return <input {...rest} className={styles.input} placeholder={placeholder} type={type} value={value} onChange={onChange} />;
 };
 export default TextInputFieldStateless;

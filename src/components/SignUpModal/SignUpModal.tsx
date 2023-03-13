@@ -1,6 +1,5 @@
-import ReactDOM from 'react-dom';
 import { Form, FormikValues, ErrorMessage } from 'formik';
-import axios from 'axios';
+import { postSignUp } from 'api/sign-up/sign-up';
 import { signUpSchema } from 'schemas';
 import TextInputField from 'components/TextInputField/TextInputField';
 import Button from 'components/Button/Button';
@@ -20,19 +19,19 @@ type User = {
   password: string;
 };
 
-const BackDrop: React.FC = () => {
-  return <div className={styles.backdrop} />;
-};
-
-const ModalOverlay: React.FC<SignUpProps> = ({ onClose }: SignUpProps) => {
+const SignUpForm: React.FC<SignUpProps> = ({ onClose }: SignUpProps) => {
   const initialValues = {
     name: '',
     email: '',
     password: '',
   };
   const handleSubmit = async (values: FormikValues) => {
-    const { data } = await axios.post<User>('http://localhost:3001/sign-up', values);
-    console.log(data);
+    const user: User = {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    };
+    await postSignUp(user);
   };
 
   return (
@@ -69,19 +68,4 @@ const ModalOverlay: React.FC<SignUpProps> = ({ onClose }: SignUpProps) => {
   );
 };
 
-const SignUpModal: React.FC<SignUpProps> = ({ onClose }: SignUpProps) => {
-  const modalRoot = document.getElementById('modal-root');
-
-  if (!modalRoot) {
-    throw new Error('modal-root element not found');
-  }
-
-  return (
-    <>
-      {ReactDOM.createPortal(<BackDrop />, modalRoot)}
-      {ReactDOM.createPortal(<ModalOverlay onClose={onClose} />, modalRoot)}
-    </>
-  );
-};
-
-export default SignUpModal;
+export default SignUpForm;
