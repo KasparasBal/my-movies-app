@@ -4,14 +4,17 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import './index.css';
 import App from './App';
+import { ProfileProvider } from './providers/ProfileProvider';
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
+    <ProfileProvider>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </ProfileProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

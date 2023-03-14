@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { postLogin } from 'api/login/login';
 import InputWrapper from 'components/InputWrapper/InputWrapper';
 import TextInputField from 'components/TextInputField/TextInputField';
@@ -5,6 +6,7 @@ import { Formik, Form, FormikValues, ErrorMessage } from 'formik';
 import NavigationLink from 'components/NavigationLink/NavigationLink';
 import Button from 'components/Button/Button';
 import { loginSchema } from 'schemas';
+import { ProfileContext } from 'providers/ProfileProvider';
 
 import styles from './LoginForm.module.css';
 
@@ -14,6 +16,7 @@ type LoginProps = {
 };
 
 const LoginForm: React.FC<LoginProps> = ({ onClose, onFormChange }: LoginProps) => {
+  const profileContext = useContext(ProfileContext);
   const initialValues = {
     email: '',
     password: '',
@@ -25,14 +28,14 @@ const LoginForm: React.FC<LoginProps> = ({ onClose, onFormChange }: LoginProps) 
   };
 
   const handleSubmit = async (values: FormikValues) => {
-    console.log('something');
     const user: User = {
       email: values.email,
       password: values.password,
     };
     const token = await postLogin(user);
 
-    console.log(token);
+    profileContext.onLogin(`${token.token}`);
+    onClose();
   };
 
   return (

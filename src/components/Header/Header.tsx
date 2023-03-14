@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useMediaQuery } from 'hooks/useMediaQuery';
 import HamburgerButton from 'components/HamburgerButton/HamburgerButton';
 import { MyMoviesLogo } from 'components/Icons';
@@ -10,8 +10,10 @@ import SignUpForm from 'components/SignUpForm/SignUpForm';
 import LoginForm from 'components/LoginForm/LoginForm';
 
 import styles from './Header.module.css';
+import { ProfileContext } from '../../providers/ProfileProvider';
 
 const Header: React.FC = () => {
+  const profileContext = useContext(ProfileContext);
   const [isActive, setIsActive] = useState(false);
   const [formType, setFormType] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,11 +53,19 @@ const Header: React.FC = () => {
               <NavigationLink>
                 <NavLink to="Movies">Movies</NavLink>
               </NavigationLink>
-              <NavigationLink>
-                <a href="#" onClick={openModalHandler}>
-                  Sign in/up
-                </a>
-              </NavigationLink>
+              {profileContext.isLoggedIn ? (
+                <NavigationLink>
+                  <a href="#" onClick={profileContext.onLogout}>
+                    Logout
+                  </a>
+                </NavigationLink>
+              ) : (
+                <NavigationLink>
+                  <a href="#" onClick={openModalHandler}>
+                    Sign in/up
+                  </a>
+                </NavigationLink>
+              )}
             </div>
           )}
         </nav>
@@ -65,6 +75,24 @@ const Header: React.FC = () => {
           <NavigationLink>
             <NavLink to="Movies">Movies</NavLink>
           </NavigationLink>
+          {profileContext.isLoggedIn ? (
+            <NavigationLink>
+              <a href="#" onClick={profileContext.onLogout}>
+                Logout
+              </a>
+            </NavigationLink>
+          ) : (
+            <NavigationLink>
+              <a
+                href="#"
+                onClick={() => {
+                  openModalHandler(), isActiveHandler();
+                }}
+              >
+                Sign in/up
+              </a>
+            </NavigationLink>
+          )}
         </Sidebar>
       )}
       {isModalOpen && (
