@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useMediaQuery } from 'hooks/useMediaQuery';
 import HamburgerButton from 'components/HamburgerButton/HamburgerButton';
 import { MyMoviesLogo } from 'components/Icons';
@@ -6,12 +6,16 @@ import { NavLink } from 'react-router-dom';
 import Sidebar from 'components/Sidebar/Sidebar';
 import NavigationLink from 'components/NavigationLink/NavigationLink';
 import Modal from 'components/Modal/Modal';
-import SignUpForm from 'components/SignUpModal/SignUpModal';
+import SignUpForm from 'components/SignUpForm/SignUpForm';
+import LoginForm from 'components/LoginForm/LoginForm';
 
 import styles from './Header.module.css';
+import { ProfileContext } from '../../providers/ProfileProvider';
 
 const Header: React.FC = () => {
+  const profileContext = useContext(ProfileContext);
   const [isActive, setIsActive] = useState(false);
+  const [formType, setFormType] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { match } = useMediaQuery('(max-width: 768px)');
 
@@ -31,6 +35,10 @@ const Header: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  const formChangeHandler = () => {
+    setFormType(!formType);
+  };
+
   return (
     <>
       <header className={styles.header}>
@@ -45,11 +53,19 @@ const Header: React.FC = () => {
               <NavigationLink>
                 <NavLink to="Movies">Movies</NavLink>
               </NavigationLink>
-              <NavigationLink>
-                <a href="#" onClick={openModalHandler}>
-                  SignUp
-                </a>
-              </NavigationLink>
+              {profileContext.isLoggedIn ? (
+                <NavigationLink>
+                  <a href="#" onClick={profileContext.onLogout}>
+                    Logout
+                  </a>
+                </NavigationLink>
+              ) : (
+                <NavigationLink>
+                  <a href="#" onClick={openModalHandler}>
+                    Sign in/up
+                  </a>
+                </NavigationLink>
+              )}
             </div>
           )}
         </nav>
@@ -59,11 +75,33 @@ const Header: React.FC = () => {
           <NavigationLink>
             <NavLink to="Movies">Movies</NavLink>
           </NavigationLink>
+          {profileContext.isLoggedIn ? (
+            <NavigationLink>
+              <a href="#" onClick={profileContext.onLogout}>
+                Logout
+              </a>
+            </NavigationLink>
+          ) : (
+            <NavigationLink>
+              <a
+                href="#"
+                onClick={() => {
+                  openModalHandler(), isActiveHandler();
+                }}
+              >
+                Sign in/up
+              </a>
+            </NavigationLink>
+          )}
         </Sidebar>
       )}
       {isModalOpen && (
         <Modal>
-          <SignUpForm onClose={closeModalHandler} />
+          {formType === false ? (
+            <LoginForm onClose={closeModalHandler} onFormChange={formChangeHandler} />
+          ) : (
+            <SignUpForm onClose={closeModalHandler} onFormChange={formChangeHandler} />
+          )}
         </Modal>
       )}
     </>
