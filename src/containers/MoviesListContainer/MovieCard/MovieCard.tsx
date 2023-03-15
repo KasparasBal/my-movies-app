@@ -1,4 +1,8 @@
+import { useContext } from 'react';
+import Favorite from 'components/Favorite/Favorite';
 import { StarIcon } from 'components/Icons';
+import { ProfileContext } from 'providers/ProfileProvider';
+import { postMovieSave } from 'api/movie-save/movie-save';
 
 import styles from './MovieCard.module.css';
 
@@ -12,6 +16,20 @@ type Movie = {
 };
 
 const MovieCard: React.FC<Movie> = (props: Movie) => {
+  const profileContext = useContext(ProfileContext);
+
+  const handleMovieFavorite = async () => {
+    const movie = {
+      movieId: props.movieId,
+      title: props.movieTitle,
+      releaseDate: props.movieReleaseDate,
+      backdropPath: props.movieBackDropPath,
+      posterPath: props.moviePosterPath,
+      voteAverage: props.movieVoteAverage,
+    };
+
+    await postMovieSave(movie);
+  };
   return (
     <div className={styles.movieCard}>
       <a href={`http://localhost:3000/movies/${props.movieId}`}>
@@ -27,7 +45,9 @@ const MovieCard: React.FC<Movie> = (props: Movie) => {
           </p>
           <p className={styles.movieCard_title}>{props.movieTitle}</p>
         </div>
-        <div className={styles.movieCard_releaseDate}>{props.movieReleaseDate}</div>
+        <div className={styles.movieCard_releaseDate}>
+          {props.movieReleaseDate} {profileContext.isLoggedIn && <Favorite onClick={handleMovieFavorite} />}
+        </div>
       </div>
     </div>
   );
