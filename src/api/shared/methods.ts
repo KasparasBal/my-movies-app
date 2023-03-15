@@ -8,3 +8,7 @@ export function get<T>(url: string): Promise<AxiosResponse<T>> {
 
 export const post = <T, R>(url: string, body: T, config?: AxiosRequestConfig): Promise<AxiosResponse<R>> =>
   axios.post<R>(`${BASE_API_URL}/${url}`, body, config);
+
+export function del<T>(url: string): Promise<AxiosResponse<T>> {
+  return axios.delete<T>(`${BASE_API_URL}/${url}`);
+}
