@@ -8,7 +8,9 @@ import styles from './MovieCard.module.css';
 
 type Movie = {
   movieId: number;
+  movieIds?: number[];
   movieTitle: string;
+  movieRefetch: () => void;
   movieReleaseDate: string;
   movieBackDropPath: string;
   moviePosterPath: string;
@@ -17,6 +19,8 @@ type Movie = {
 
 const MovieCard: React.FC<Movie> = (props: Movie) => {
   const profileContext = useContext(ProfileContext);
+
+  const movieIdMatch = props.movieIds && props.movieIds.find((movie) => movie === props.movieId);
 
   const handleMovieFavorite = async () => {
     const movie = {
@@ -29,6 +33,7 @@ const MovieCard: React.FC<Movie> = (props: Movie) => {
     };
 
     await postMovieSave(movie);
+    props.movieRefetch();
   };
   return (
     <div className={styles.movieCard}>
@@ -46,7 +51,7 @@ const MovieCard: React.FC<Movie> = (props: Movie) => {
           <p className={styles.movieCard_title}>{props.movieTitle}</p>
         </div>
         <div className={styles.movieCard_releaseDate}>
-          {props.movieReleaseDate} {profileContext.isLoggedIn && <Favorite onClick={handleMovieFavorite} />}
+          {props.movieReleaseDate} {props.movieIds && <span>{profileContext.isLoggedIn && !movieIdMatch && <Favorite onClick={handleMovieFavorite} />} </span>}
         </div>
       </div>
     </div>

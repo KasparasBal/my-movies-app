@@ -5,6 +5,7 @@ import axios from 'axios';
 import Pagination from 'components/Pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
 import { FormikValues } from 'formik';
+import { fetchPersonalMovies } from 'api/movies/movies';
 
 import MovieCard from './MovieCard/MovieCard';
 import styles from './MoviesListContainer.module.css';
@@ -50,6 +51,9 @@ const MoviesListContainer: React.FC = () => {
   const { match: matchLG } = useMediaQuery('(min-width: 992px) and (max-width: 1200px)');
   const { match: matchXL } = useMediaQuery('(min-width: 1200px)');
 
+  const { data: personalMovies, refetch } = useQuery(['personal-movies'], fetchPersonalMovies);
+  const movieIds = personalMovies && personalMovies.movies.map((movie) => movie.movieId);
+
   const MovieData =
     data &&
     data.movies.map((movie: Movie) => (
@@ -57,7 +61,9 @@ const MoviesListContainer: React.FC = () => {
         key={movie.movieId}
         movieBackDropPath={movie.backdropPath}
         movieId={movie.movieId}
+        movieIds={movieIds}
         moviePosterPath={movie.posterPath}
+        movieRefetch={refetch}
         movieReleaseDate={movie.releaseDate}
         movieTitle={movie.title}
         movieVoteAverage={movie.voteAverage}

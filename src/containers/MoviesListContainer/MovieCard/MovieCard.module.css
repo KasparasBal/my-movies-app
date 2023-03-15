@@ -15,11 +15,10 @@
     word-break: break-word;
 }
 .movieCard_releaseDate{
-    align-items: center;
+
     display: flex;
     font-weight: 700;
     justify-content: space-between;
-    margin-bottom: 10px;
 }
 .movieCard_details{
     display: flex;
