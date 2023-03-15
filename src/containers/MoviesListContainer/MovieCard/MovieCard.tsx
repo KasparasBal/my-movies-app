@@ -19,8 +19,6 @@ const MovieCard: React.FC<Movie> = (props: Movie) => {
   const profileContext = useContext(ProfileContext);
 
   const handleMovieFavorite = async () => {
-    const token = localStorage.getItem('TOKEN');
-
     const movie = {
       movieId: props.movieId,
       title: props.movieTitle,
@@ -30,7 +28,7 @@ const MovieCard: React.FC<Movie> = (props: Movie) => {
       voteAverage: props.movieVoteAverage,
     };
 
-    await postMovieSave(movie, token);
+    await postMovieSave(movie);
   };
   return (
     <div className={styles.movieCard}>
