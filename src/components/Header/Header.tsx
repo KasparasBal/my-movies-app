@@ -53,6 +53,9 @@ const Header: React.FC = () => {
               <NavigationLink>
                 <NavLink to="Movies">Movies</NavLink>
               </NavigationLink>
+              <NavigationLink>
+                <NavLink to="my-movies">My Movies</NavLink>
+              </NavigationLink>
               {profileContext.isLoggedIn ? (
                 <NavigationLink>
                   <a href="#" onClick={profileContext.onLogout}>
@@ -74,6 +77,9 @@ const Header: React.FC = () => {
         <Sidebar onBackDropClick={isActiveHandler}>
           <NavigationLink>
             <NavLink to="Movies">Movies</NavLink>
+          </NavigationLink>
+          <NavigationLink>
+            <NavLink to="my-movies">My Movies</NavLink>
           </NavigationLink>
           {profileContext.isLoggedIn ? (
             <NavigationLink>
