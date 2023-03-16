@@ -13,6 +13,8 @@ const MyMoviesListContainer: React.FC = () => {
   const profileContext = useContext(ProfileContext);
   const { data, isLoading, refetch } = useQuery(['personal-movies'], fetchPersonalMovies);
 
+  const movieIds = data && data.movies.map((movie) => movie.movieId);
+
   const Movie =
     data &&
     data.movies.map((movie) => (
@@ -20,6 +22,7 @@ const MyMoviesListContainer: React.FC = () => {
         key={movie.movieId}
         movieBackDropPath={movie.backdropPath}
         movieId={movie.movieId}
+        movieIds={movieIds}
         moviePosterPath={movie.posterPath}
         movieRefetch={refetch}
         movieReleaseDate={movie.releaseDate}

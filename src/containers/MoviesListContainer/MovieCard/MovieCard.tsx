@@ -3,6 +3,7 @@ import Favorite from 'components/Favorite/Favorite';
 import { StarIcon } from 'components/Icons';
 import { ProfileContext } from 'providers/ProfileProvider';
 import { postMovieSave } from 'api/movie-save/movie-save';
+import { deleteMovie } from 'api/movie-delete/movie-delete';
 
 import styles from './MovieCard.module.css';
 
@@ -20,7 +21,7 @@ type Movie = {
 const MovieCard: React.FC<Movie> = (props: Movie) => {
   const profileContext = useContext(ProfileContext);
 
-  const movieIdMatch = props.movieIds && props.movieIds.find((movie) => movie === props.movieId);
+  const movieIdMatch = props.movieIds && props.movieIds.includes(props.movieId);
 
   const handleMovieFavorite = async () => {
     const movie = {
@@ -31,8 +32,7 @@ const MovieCard: React.FC<Movie> = (props: Movie) => {
       posterPath: props.moviePosterPath,
       voteAverage: props.movieVoteAverage,
     };
-
-    await postMovieSave(movie);
+    movieIdMatch ? await deleteMovie(`${props.movieId}`) : await postMovieSave(movie);
     props.movieRefetch();
   };
   return (
@@ -51,7 +51,8 @@ const MovieCard: React.FC<Movie> = (props: Movie) => {
           <p className={styles.movieCard_title}>{props.movieTitle}</p>
         </div>
         <div className={styles.movieCard_releaseDate}>
-          {props.movieReleaseDate} {props.movieIds && <span>{profileContext.isLoggedIn && !movieIdMatch && <Favorite onClick={handleMovieFavorite} />} </span>}
+          {props.movieReleaseDate}
+          {props.movieIds && <span>{profileContext.isLoggedIn && <Favorite movieIdMatch={movieIdMatch} onClick={handleMovieFavorite} />} </span>}
         </div>
       </div>
     </div>

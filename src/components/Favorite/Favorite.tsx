@@ -1,14 +1,17 @@
-import favoriteAdd from '../Icons/assets/favoriteAdd.svg';
+import { FavoriteAdd } from 'components/Icons';
+import { FavoriteRemove } from 'components/Icons';
+
 import styles from './Favorite.module.css';
 
 type FavoriteProps = {
   onClick: () => void;
+  movieIdMatch: boolean | undefined;
 };
 
-const Favorite: React.FC<FavoriteProps> = ({ onClick }: FavoriteProps) => {
+const Favorite: React.FC<FavoriteProps> = ({ onClick, movieIdMatch }: FavoriteProps) => {
   return (
     <button className={styles.button} onClick={onClick}>
-      <img alt="favorite icon" src={favoriteAdd} />
+      {movieIdMatch ? <FavoriteRemove /> : <FavoriteAdd />}
     </button>
   );
 };
