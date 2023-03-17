@@ -29,7 +29,7 @@ const fetchData = async (
     sort?: string;
   },
 ) => {
-  let url = `http://localhost:3001/movies?page=${activePage}`;
+  let url = `${process.env.REACT_APP_API_URL}/movies?page=${activePage}`;
   if (movieFilter.title) url += `&title=${movieFilter.title}`;
   if (movieFilter.sort) url += `&sort=${movieFilter.sort}`;
   if (movieFilter.genres && movieFilter.genres.length) {
