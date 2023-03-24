@@ -22,6 +22,7 @@ interface Genre {
 
 const MovieInfoContainer: React.FC = () => {
   const { id } = useParams();
+  
   const fetchData = async () => {
     const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/movies/${id}`);
     return data;
