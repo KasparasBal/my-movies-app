@@ -37,7 +37,7 @@ const MovieCard: React.FC<Movie> = (props: Movie) => {
   };
   return (
     <div className={styles.movieCard}>
-      <a href={`http://localhost:3000/movies/${props.movieId}`}>
+     <a href={`${process.env.REACT_APP_URL}/movies/${props.movieId}`}>
         <img alt="movie poster photo" className={styles.movieCard_image} src={props.moviePosterPath} />
       </a>
       <div className={styles.movieCard_details}>
