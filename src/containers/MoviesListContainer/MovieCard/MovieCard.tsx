@@ -38,7 +38,7 @@ const MovieCard: React.FC<Movie> = (props: Movie) => {
   };
   return (
     <div className={styles.movieCard}>
-       <NavLink to=`${process.env.REACT_APP_URL}/movies/${props.movieId}`>
+       <NavLink to=`movies/${props.movieId}`>
         <img alt="movie poster photo" className={styles.movieCard_image} src={props.moviePosterPath} />
      </NavLink>
       <div className={styles.movieCard_details}>
