@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import Favorite from 'components/Favorite/Favorite';
 import { StarIcon } from 'components/Icons';
+import { NavLink } from 'react-router-dom';
 import { ProfileContext } from 'providers/ProfileProvider';
 import { postMovieSave } from 'api/movie-save/movie-save';
 import { deleteMovie } from 'api/movie-delete/movie-delete';
@@ -37,9 +38,9 @@ const MovieCard: React.FC<Movie> = (props: Movie) => {
   };
   return (
     <div className={styles.movieCard}>
-     <a href={`${process.env.REACT_APP_URL}/movies/${props.movieId}`}>
+       <NavLink to=`${process.env.REACT_APP_URL}/movies/${props.movieId}`>
         <img alt="movie poster photo" className={styles.movieCard_image} src={props.moviePosterPath} />
-      </a>
+     </NavLink>
       <div className={styles.movieCard_details}>
         <div>
           <p className={styles.movieCard_rating}>
