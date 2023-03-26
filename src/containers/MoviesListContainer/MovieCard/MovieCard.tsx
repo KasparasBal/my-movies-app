@@ -38,9 +38,9 @@ const MovieCard: React.FC<Movie> = (props: Movie) => {
   };
   return (
     <div className={styles.movieCard}>
-       <NavLink to=`movies/${props.movieId}`>
+      <NavLink to={`movies/${props.movieId}`}>
         <img alt="movie poster photo" className={styles.movieCard_image} src={props.moviePosterPath} />
-     </NavLink>
+      </NavLink>
       <div className={styles.movieCard_details}>
         <div>
           <p className={styles.movieCard_rating}>
